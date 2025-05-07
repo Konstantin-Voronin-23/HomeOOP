@@ -4,7 +4,7 @@ class Category():
     """Класс для названия и описании категорий"""
 
     total_categories = 0
-    all_products = []
+    all_products: list = []
 
     def __init__(self, name: str, description: str, products: list = None):
         """Метод для инициализации класса"""
