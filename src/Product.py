@@ -3,7 +3,7 @@
 class Product():
     """Класс для названия и описания продукта"""
 
-    def __init__(self, name: str, description: str, price: float, quantity: int):
+    def __init__(self, name: str, description: str, price: float, quantity: int) -> None:
         """Метод для инициализации класса"""
 
         self.name = name
