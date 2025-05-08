@@ -27,16 +27,16 @@ class TestCategory:
 
     def test_total_categories_counter(self):
         """Проверка подсчета количества категорий"""
-        assert Category.total_categories == 0
+        assert Category.category_count == 0
 
         Category("Категория 1", "Описание 1")
-        assert Category.total_categories == 1
+        assert Category.category_count == 1
 
         Category("Категория 2", "Описание 2")
-        assert Category.total_categories == 2
+        assert Category.category_count == 2
 
-    def test_total_products_counter(self):
-        """Проверка подсчета общего количества продуктов"""
+    def test_product_counter_with_products(self):
+        """Проверка подсчета количества продуктов"""
         products1 = [
             Product("Товар 1", "Описание 1", 100.0, 1),
             Product("Товар 2", "Описание 2", 200.0, 2)
@@ -45,13 +45,18 @@ class TestCategory:
             Product("Товар 3", "Описание 3", 300.0, 3)
         ]
 
+        # Создаем первую категорию с 2 продуктами
         Category("Категория 1", "Описание 1", products1)
-        assert Category.total_products() == 2
+        assert Category.product_count == 2
+        assert Category.category_count == 1
 
+        # Создаем вторую категорию с 1 продуктом
         Category("Категория 2", "Описание 2", products2)
-        assert Category.total_products() == 3
+        assert Category.product_count == 3
+        assert Category.category_count == 2
 
-    def test_empty_category_products_count(self):
-        """Проверка что пустая категория не влияет на общий счетчик продуктов"""
+    def test_product_counter_empty_category(self):
+        """Проверка, что пустая категория не увеличивает счетчик продуктов"""
         Category("Пустая категория", "Без продуктов")
-        assert Category.total_products() == 0
+        assert Category.product_count == 0
+        assert Category.category_count == 1

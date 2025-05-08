@@ -8,8 +8,8 @@ from src.Category import Category
 @pytest.fixture(autouse=True)
 def reset_category_state():
     """Сбрасывает счетчики перед каждым тестом"""
-    Category.total_categories = 0
-    Category.all_products = []
+    Category.category_count = 0
+    Category.product_count = 0
     yield
 
 

@@ -47,3 +47,18 @@ class TestCreateObjectFromJson:
         """Проверка обработки некорректной структуры данных"""
         with pytest.raises(KeyError):
             create_object_from_json([{"wrong": "structure"}])
+
+
+def test_json_decode_error(tmp_path, capsys):
+        """Проверка обработки некорректного JSON"""
+
+        file_path = tmp_path / "invalid.json"
+        file_path.write_text("{'invalid': 'json'}", encoding="utf-8")  # Одиночные кавычки - невалидный JSON
+
+        result = read_json_file(str(file_path))
+
+        assert result == []
+
+        captured = capsys.readouterr()
+        expected_message = f"Ошибка: файл {file_path} содержит некорректный JSON!"
+        assert expected_message in captured.out

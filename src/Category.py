@@ -3,8 +3,8 @@
 class Category():
     """Класс для названия и описании категорий"""
 
-    total_categories = 0
-    all_products: list = []
+    category_count = 0
+    product_count = 0
 
     def __init__(self, name: str, description: str, products: list = None):
         """Метод для инициализации класса"""
@@ -13,11 +13,5 @@ class Category():
         self.description = description
         self.products = products if products else []
 
-        Category.all_products.extend(self.products)
-        Category.total_categories += 1
-
-    @classmethod
-    def total_products(cls) -> int:
-        """Считает общее количество товара во всех категориях"""
-
-        return len(Category.all_products)
+        Category.category_count += 1
+        Category.product_count += len(self.products)
