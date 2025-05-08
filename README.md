@@ -55,8 +55,6 @@ poetry add openpyxl
 
 ### - __init__ :
       - Метод для инициализации класса с аргументами name | description | products
-### - total_products:
-      - Метод который считает общее количество товара во всех категориях
 
 </details>
 
@@ -94,10 +92,10 @@ poetry add openpyxl
   - Проверка инициализации категории с продуктами
 ### test_total_categories_counter:
   - Проверка подсчета количества категорий
-### test_total_products_counter:
-  - Проверка подсчета общего количества продуктов
-### test_empty_category_products_count:
-  - Проверка что пустая категория не влияет на общий счетчик продуктов
+### test_product_counter_with_products:
+  - Проверка подсчета количества продуктов
+### test_product_counter_empty_category:
+  - Проверка, что пустая категория не увеличивает счетчик продуктов
 
 </details>
 
@@ -114,10 +112,12 @@ poetry add openpyxl
   - Проверка обработки пустых данных
 ### test_invalid_data_structure:
   - Проверка обработки некорректной структуры данных
+### test_json_decode_error:
+  - Проверка обработки некорректного JSON
 
 </details>
 
-# Покрытие тестами 98%
+# Покрытие тестами 100%
 
 # Документация
 
