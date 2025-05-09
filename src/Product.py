@@ -16,10 +16,14 @@ class Product():
     def new_product(cls, product_data: dict, products_list: list = None):
         """Принимает на вход параметры товара в словаре и возвращать созданный объект класса"""
 
+        if products_list is None:
+            products_list = []
+
         for product in products_list:
             if product.name.lower() == product_data['name'].lower():
                 product.quantity += product_data['quantity']
-                product.price = max(product.price, product_data['price'])
+                if product_data['price'] > product.price:
+                    product.__price = product_data['price']
                 return product
 
         return cls(
@@ -52,4 +56,4 @@ class Product():
                 print("Изменение цены отменено")
                 return
 
-            self.__price = new_price
+        self.__price = new_price
