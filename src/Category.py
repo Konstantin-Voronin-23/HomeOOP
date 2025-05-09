@@ -21,7 +21,7 @@ class Category():
         """Метод для добавления товаров в категорию"""
 
         if not isinstance(product, Product):
-            raise TypeError ("Можно добавлять только объекты от класса Product")
+            raise TypeError("Можно добавлять только объекты от класса Product")
 
         self.__products.append(product)
         Category.product_count += 1
@@ -32,5 +32,5 @@ class Category():
 
         return "\n".join(
             f"{product.name}, {product.price} руб. , Остаток: {product.quantity} шт."
-                         for product in self.__products
-                         )
+            for product in self.__products
+        )

@@ -1,7 +1,5 @@
 import pytest
 
-from src.Category import Category
-from src.Product import Product
 from src.utils import create_object_from_json, read_json_file
 
 

@@ -11,7 +11,6 @@ class Product():
         self.__price = price
         self.quantity = quantity
 
-
     @classmethod
     def new_product(cls, product_data: dict, products_list: list = None):
         """Принимает на вход параметры товара в словаре и возвращать созданный объект класса"""
@@ -33,13 +32,11 @@ class Product():
             quantity=product_data['quantity']
         )
 
-
     @property
     def price(self) -> float:
         """Getter возвращает значение приватного атрибута цены"""
 
         return self.__price
-
 
     @price.setter
     def price(self, new_price: float) -> None:

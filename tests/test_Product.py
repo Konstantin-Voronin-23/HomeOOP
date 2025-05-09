@@ -1,7 +1,7 @@
-from src.Product import Product
-import pytest
-from unittest.mock import patch
 from io import StringIO
+from unittest.mock import patch
+
+from src.Product import Product
 
 
 class TestProductOne:
