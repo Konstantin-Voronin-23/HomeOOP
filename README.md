@@ -42,8 +42,12 @@ poetry add openpyxl
 <details>
 <summary><b>❗ PRODUCT ❗</b></summary>
 
-  ### - __init__ :
-      - Метод для инициализации класса с аргументами name | description | price | quantity
+###  __init__ :
+  - Метод для инициализации класса с аргументами name | description | price | quantity
+### new_product:
+  - Метод класса, принимает на вход параметры товара в словаре и возвращать созданный объект класса
+### price:
+  - Setter проверяет: в случае если цена равна или ниже нуля, выводит сообщение в консоль, так же предлагает пользователю подтвердить смену цены, если новая просто ниже актуальной 
 
 </details>
 
@@ -53,8 +57,12 @@ poetry add openpyxl
 <details>
 <summary><b>❗ CATEGORY ❗</b></summary>
 
-### - __init__ :
-      - Метод для инициализации класса с аргументами name | description | products
+###  __init__ :
+  - Метод для инициализации класса с аргументами name | description | products
+### add_product:
+  - Метод для добавления товаров в категорию
+### products:
+  - Getter, возвращает строковое представление товаров
 
 </details>
 
@@ -63,9 +71,9 @@ poetry add openpyxl
 <details>
 <summary><b>❗ UTILS ❗</b></summary>
 
-  ### - read_json_file :
+###  read_json_file :
       - Функция для чтения json файла
-  ### - create_object_from_json:
+###  create_object_from_json:
       - Функция которая принимает Json файл и превращает категории в объекты
 
 </details>
@@ -80,6 +88,24 @@ poetry add openpyxl
   - Проверка корректности инициализации продукта
 ### test_product_attributes_types:
   - Проверка типов атрибутов продукта
+### test_new_product_creates_new_instance:
+  - Тест создания нового продукта, когда такого продукта еще нет в списке
+### test_new_product_updates_existing_product:
+  - Тест обновления существующего продукта
+### test_new_product_keeps_higher_price:
+  - Тест что сохраняется более высокая цена при обновлении продукта
+### test_price_getter:
+  - Тест геттера цены
+### test_price_setter_valid_price:
+  - Тест сеттера цены с валидным значением
+### test_price_setter_invalid_price:
+  - Тест сеттера цены с невалидным значением (<= 0)
+### test_price_setter_lower_price_rejected:
+  - Тест отмены понижения цены
+### test_price_setter_lower_price_accepted:
+  - Тест подтверждения понижения цены
+### test_new_product_with_empty_list:
+  - Тест создания нового продукта при пустом списке
 
 </details>
 
@@ -96,6 +122,14 @@ poetry add openpyxl
   - Проверка подсчета количества продуктов
 ### test_product_counter_empty_category:
   - Проверка, что пустая категория не увеличивает счетчик продуктов
+### test_add_product_valid:
+  - Тест добавления корректного продукта в категорию
+### test_add_product_invalid_type:
+  - Тест попытки добавления объекта не типа Product
+### test_products_property:
+  - Тест свойства products, возвращающего строковое представление
+### test_products_property_empty:
+  - Тест свойства products с пустым списком продуктов
 
 </details>
 
