@@ -26,11 +26,16 @@ class Category():
         self.__products.append(product)
         Category.product_count += 1
 
+    def __str__(self) -> str:
+        """Метод отображения информации об объекте класса для пользователя"""
+
+        return f"{self.name}, количество продуктов: {len(self.__products)} шт."
+
     @property
     def products(self) -> str:
         """Возвращает строковое представление товаров"""
 
         return "\n".join(
-            f"{product.name}, {product.price} руб. , Остаток: {product.quantity} шт."
+            f"{product.name}, {product.price} руб.  Остаток: {product.quantity} шт."
             for product in self.__products
         )
