@@ -148,11 +148,13 @@ class TestCategoryIterator(unittest.TestCase):
         self.mock_category = MockCategory(["product1", "product2", "product3"])
 
     def test_iterator_returns_all_products(self):
+        """Проверка на то, что корректно возвращаются все продукты"""
         iterator = CategoryIterator(self.mock_category)
         products = list(iterator)
         self.assertEqual(products, ["product1", "product2", "product3"])
 
     def test_iterator_stops_after_last_product(self):
+        """Проверка, что после последнего продукта итератор останавливается"""
         iterator = CategoryIterator(self.mock_category)
         next(iterator)
         next(iterator)
@@ -161,6 +163,7 @@ class TestCategoryIterator(unittest.TestCase):
             next(iterator)
 
     def test_empty_category(self):
+        """Проверка пустого знеачения"""
         empty_category = type('', (), {'products': []})()
         iterator = CategoryIterator(empty_category)
         with self.assertRaises(StopIteration):
@@ -173,6 +176,7 @@ class TestCategoryIterator(unittest.TestCase):
         self.assertIs(iter(iterator), iterator)
 
     def test_category_iter_returns_iterator(self):
+        """Проверяет, что возвращается итератор"""
         iterator = iter(self.mock_category)
         self.assertIsInstance(iterator, CategoryIterator)
         self.assertEqual(list(iterator), ["product1", "product2", "product3"])
