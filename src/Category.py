@@ -1,4 +1,5 @@
 from src.Product import Product
+from typing import List
 
 
 class Category():
@@ -7,7 +8,7 @@ class Category():
     category_count = 0
     product_count = 0
 
-    def __init__(self, name: str, description: str, products: list = None) -> None:
+    def __init__(self, name: str, description: str, products: List['Product'] = None) -> None:
         """Метод для инициализации класса"""
 
         self.name = name
@@ -36,6 +37,6 @@ class Category():
         """Возвращает строковое представление товаров"""
 
         return "\n".join(
-            f"{product.name}, {product.price} руб.  Остаток: {product.quantity} шт."
+            f"{product.name}, {product.price} руб. , Остаток: {product.quantity} шт."
             for product in self.__products
         )

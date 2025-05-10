@@ -1,4 +1,4 @@
-from typing import List, Optional
+from typing import List, Optional, Dict
 
 
 class Product():
@@ -18,7 +18,7 @@ class Product():
         return f"{self.name}, {self.__price} руб. Остаток: {self.quantity} шт."
 
     @classmethod
-    def new_product(cls, product_data: dict, products_list: Optional[List[Product]] = None) -> Product:
+    def new_product(cls, product_data: Dict, products_list: Optional[List['Product']] = None) -> 'Product':
         """Принимает на вход параметры товара в словаре и возвращать созданный объект класса"""
 
         if products_list is None:

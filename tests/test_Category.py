@@ -1,4 +1,5 @@
 import pytest
+import unittest
 
 from src.Category import Category
 from src.Product import Product
@@ -97,3 +98,36 @@ class TestCategoryTwo:
         category = Category("Тест", "Тестовая категория")
 
         assert category.products == ""
+
+
+class TestCategoryMethods(unittest.TestCase):
+    def setUp(self):
+        """Подготовка тестовых данных"""
+        self.products = [
+            Product("Телефон", "Смартфон", 50000.0, 10),
+            Product("Ноутбук", "Игровой ноутбук", 100000.0, 5)
+        ]
+        self.category = Category("Электроника", "Техника", self.products)
+
+    def test_category_str(self):
+        """Тест метода __str__ класса Category"""
+        self.assertEqual(
+            str(self.category),
+            "Электроника, количество продуктов: 2 шт."
+        )
+
+        # Проверка с пустой категорией
+        empty_category = Category("Пустая", "Категория без товаров")
+        self.assertEqual(
+            str(empty_category),
+            "Пустая, количество продуктов: 0 шт."
+        )
+
+    def test_category_add_product(self):
+        """Тест добавления продукта и проверка __str__"""
+        new_product = Product("Наушники", "Беспроводные", 15000.0, 20)
+        self.category.add_product(new_product)
+        self.assertEqual(
+            str(self.category),
+            "Электроника, количество продуктов: 3 шт."
+        )
