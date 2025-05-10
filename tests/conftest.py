@@ -1,9 +1,8 @@
-from src.Category import Category
-from src.Product import Product
-
 import json
 
 import pytest
+
+from src.Category import Category
 
 
 @pytest.fixture(autouse=True)

@@ -1,4 +1,4 @@
-from typing import List, Optional, Dict
+from typing import Any, Dict, List, Optional
 
 
 class Product():
@@ -38,7 +38,7 @@ class Product():
             quantity=product_data['quantity']
         )
 
-    def __add__(self, other) -> float:
+    def __add__(self, other: Any) -> Any:
         """Метод сложения продуктов, считающий их полную стоимость"""
 
         if not isinstance(other, Product):

@@ -1,9 +1,8 @@
+import unittest
 from io import StringIO
 from unittest.mock import patch
-import unittest
 
 from src.Product import Product
-from src.Category import Category
 
 
 class TestProductOne:

@@ -1,6 +1,5 @@
 import unittest
-from src.Category import Category
-from src.Product import Product
+
 from src.iterators import CategoryIterator
 
 

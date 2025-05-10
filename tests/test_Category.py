@@ -1,9 +1,10 @@
-import pytest
 import unittest
 
+import pytest
+
 from src.Category import Category
-from src.Product import Product
 from src.iterators import CategoryIterator
+from src.Product import Product
 
 
 class TestCategoryOne:
@@ -87,11 +88,6 @@ class TestCategoryTwo:
         category.add_product(product1)
         category.add_product(product2)
 
-        expected_output = (
-            "Продукт 1, 100 руб. , Остаток: 5 шт.\n"
-            "Продукт 2, 200 руб. , Остаток: 3 шт."
-        )
-
         assert len(category.products) == 2
         assert isinstance(category.products[0], Product)
         assert category.products[0].name == "Продукт 1"
@@ -134,6 +130,7 @@ class TestCategoryMethods(unittest.TestCase):
             str(self.category),
             "Электроника, количество продуктов: 3 шт."
         )
+
 
 class TestCategoryIterator(unittest.TestCase):
     def setUp(self):

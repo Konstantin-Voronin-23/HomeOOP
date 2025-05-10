@@ -1,6 +1,7 @@
-from src.Product import Product
+from typing import Any, Iterator, List
+
 from src.iterators import CategoryIterator
-from typing import List
+from src.Product import Product
 
 
 class Category():
@@ -42,9 +43,9 @@ class Category():
             for product in self.__products
         )
 
-    def __iter__(self):
+    def __iter__(self) -> Iterator[Any]:
         return CategoryIterator(self)
 
     @property
-    def products(self):
+    def products(self) -> List[Any]:
         return self.__products
