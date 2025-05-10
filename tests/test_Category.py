@@ -113,7 +113,7 @@ class TestCategoryMethods(unittest.TestCase):
         """Тест метода __str__ класса Category"""
         self.assertEqual(
             str(self.category),
-            "Электроника, количество продуктов: 2 шт."
+            "Электроника, количество продуктов: 15 шт."
         )
 
         empty_category = Category("Пустая", "Категория без товаров")
@@ -128,7 +128,7 @@ class TestCategoryMethods(unittest.TestCase):
         self.category.add_product(new_product)
         self.assertEqual(
             str(self.category),
-            "Электроника, количество продуктов: 3 шт."
+            "Электроника, количество продуктов: 35 шт."
         )
 
 

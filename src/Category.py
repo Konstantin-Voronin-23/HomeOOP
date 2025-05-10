@@ -30,9 +30,9 @@ class Category():
         Category.product_count += 1
 
     def __str__(self) -> str:
-        """Метод отображения информации об объекте класса для пользователя"""
-
-        return f"{self.name}, количество продуктов: {len(self.__products)} шт."
+        """Метод отображения информации о категории"""
+        total_quantity = sum(product.quantity for product in self.__products)
+        return f"{self.name}, количество продуктов: {total_quantity} шт."
 
     @property
     def products(self) -> str:
