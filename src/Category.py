@@ -1,4 +1,5 @@
 from src.Product import Product
+from src.iterators import CategoryIterator
 from typing import List
 
 
@@ -37,6 +38,13 @@ class Category():
         """Возвращает строковое представление товаров"""
 
         return "\n".join(
-            f"{product.name}, {product.price} руб. , Остаток: {product.quantity} шт."
+            f"{product.name}, {product.price} руб. Остаток: {product.quantity} шт."
             for product in self.__products
         )
+
+    def __iter__(self):
+        return CategoryIterator(self)
+
+    @property
+    def products(self):
+        return self.__products
