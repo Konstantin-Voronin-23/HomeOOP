@@ -1,8 +1,9 @@
 import unittest
 from io import StringIO
 from unittest.mock import patch
+import pytest
 
-from src.Product import Product
+from src.Product import Product, Smartphone, LawnGrass
 
 
 class TestProductOne:
@@ -150,3 +151,102 @@ class TestProductMethods(unittest.TestCase):
 
         with self.assertRaises(TypeError):
             self.product1 + 123
+
+    def test_add_same_products(self):
+        """Сложение товаров одного класса"""
+        p1 = Product("Товар 1", "Описание", 100, 2)
+        p2 = Product("Товар 2", "Описание", 200, 3)
+        assert p1 + p2 == 100 * 2 + 200 * 3
+
+    def test_add_different_product_types(self):
+        """Попытка сложить товары разных классов"""
+        smartphone = Smartphone("Phone", "Desc", 1000, 1, "High", "X", 128, "Black")
+        grass = LawnGrass("Grass", "Desc", 50, 10, "Russia", 14, "Green")
+
+        with pytest.raises(TypeError, match="Нельзя складывать товары разных классов"):
+            smartphone + grass
+
+    def test_add_with_non_product(self):
+        """Попытка сложить с объектом не класса Product"""
+        p = Product("Товар", "Описание", 100, 1)
+
+        with pytest.raises(TypeError, match="Можно складывать только объекты класса Product"):
+            p + "не товар"
+
+    def test_add_smartphones(self):
+        """Сложение смартфонов"""
+        s1 = Smartphone("S1", "Desc", 1000, 2, "High", "X", 128, "Black")
+        s2 = Smartphone("S2", "Desc", 800, 3, "Mid", "Y", 64, "White")
+        assert s1 + s2 == 1000 * 2 + 800 * 3
+
+    def test_add_lawn_grass(self):
+        """Сложение газонной травы"""
+        g1 = LawnGrass("G1", "Desc", 50, 10, "Russia", 14, "Green")
+        g2 = LawnGrass("G2", "Desc", 70, 5, "USA", 10, "Blue")
+        assert g1 + g2 == 50 * 10 + 70 * 5
+
+
+class TestSmartphone:
+    def test_smartphone_creation(self):
+        """Проверка создания объекта смартфона"""
+        phone = Smartphone(
+            name="iPhone 15",
+            description="Флагман Apple",
+            price=999,
+            quantity=10,
+            efficiency="High",
+            model="15 Pro",
+            memory=256,
+            color="Black"
+        )
+
+        assert phone.name == "iPhone 15"
+        assert phone.price == 999
+        assert phone.efficiency == "High"
+        assert phone.model == "15 Pro"
+        assert phone.memory == 256
+        assert phone.color == "Black"
+
+    def test_smartphone_addition(self):
+        """Проверка сложения двух смартфонов"""
+        phone1 = Smartphone("Phone1", "Desc", 500, 2, "Mid", "X", 128, "Blue")
+        phone2 = Smartphone("Phone2", "Desc", 700, 3, "High", "Y", 256, "Black")
+
+        assert phone1 + phone2 == 500 * 2 + 700 * 3
+
+
+class TestLawnGrass:
+    def test_lawn_grass_creation(self):
+        """Проверка создания объекта газонной травы"""
+        grass = LawnGrass(
+            name="Premium Grass",
+            description="Мягкая трава",
+            price=50,
+            quantity=100,
+            country="Russia",
+            germination_period=14,
+            color="Green"
+        )
+
+        assert grass.name == "Premium Grass"
+        assert grass.price == 50
+        assert grass.country == "Russia"
+        assert grass.germination_period == 14
+        assert grass.color == "Green"
+
+    def test_lawn_grass_addition(self):
+        """Проверка сложения двух упаковок травы"""
+        grass1 = LawnGrass("Grass1", "Desc", 40, 20, "USA", 10, "Dark Green")
+        grass2 = LawnGrass("Grass2", "Desc", 60, 30, "Germany", 12, "Light Green")
+
+        assert grass1 + grass2 == 40 * 20 + 60 * 30
+
+
+class TestMixedProducts:
+    def test_add_smartphone_and_grass(self):
+        """Проверка попытки сложить смартфон и траву"""
+        phone = Smartphone("Phone", "Desc", 500, 1, "Mid", "X", 128, "Blue")
+        grass = LawnGrass("Grass", "Desc", 50, 10, "Russia", 14, "Green")
+
+        with pytest.raises(TypeError, match="Нельзя складывать товары разных классов"):
+            phone + grass
