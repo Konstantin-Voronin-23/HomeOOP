@@ -1,3 +1,4 @@
+import unittest
 from io import StringIO
 from unittest.mock import patch
 
@@ -117,3 +118,35 @@ class TestProductTwo:
         assert product.description == 'Смартфон'
         assert product.price == 50000.0
         assert product.quantity == 10
+
+
+class TestProductMethods(unittest.TestCase):
+    def setUp(self):
+        """Подготовка тестовых данных"""
+        self.product1 = Product("Телефон", "Смартфон", 50000.0, 10)
+        self.product2 = Product("Ноутбук", "Игровой ноутбук", 100000.0, 5)
+        self.product3 = Product("Планшет", "Графический планшет", 30000.0, 8)
+
+    def test_product_str(self):
+        """Тест метода __str__ класса Product"""
+        self.assertEqual(
+            str(self.product1),
+            "Телефон, 50000.0 руб. Остаток: 10 шт."
+        )
+        self.assertEqual(
+            str(self.product2),
+            "Ноутбук, 100000.0 руб. Остаток: 5 шт."
+        )
+
+    def test_product_add(self):
+        """Тест метода __add__ класса Product"""
+        # Проверка корректного сложения
+        self.assertEqual(self.product1 + self.product2, 50000.0 * 10 + 100000.0 * 5)
+        self.assertEqual(self.product2 + self.product3, 100000.0 * 5 + 30000.0 * 8)
+
+        # Проверка сложения с неправильным типом
+        with self.assertRaises(TypeError):
+            self.product1 + "не продукт"
+
+        with self.assertRaises(TypeError):
+            self.product1 + 123

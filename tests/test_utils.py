@@ -27,7 +27,7 @@ class TestCreateObjectFromJson:
         """Проверка создания объектов из JSON"""
         result = create_object_from_json(sample_data)
 
-        assert len(result[0].products.split('\n')) == 2
+        assert len(result[0].products) == 2
 
     def test_empty_data(self):
         """Проверка обработки пустых данных"""

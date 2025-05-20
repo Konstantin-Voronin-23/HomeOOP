@@ -1,6 +1,9 @@
+import unittest
+
 import pytest
 
 from src.Category import Category
+from src.iterators import CategoryIterator
 from src.Product import Product
 
 
@@ -13,7 +16,7 @@ class TestCategoryOne:
 
         assert category.name == "Электроника"
         assert category.description == "Техника для дома"
-        assert category.products == ""
+        assert category.products == []
         assert len(category._Category__products) == 0
 
     def test_category_with_products(self):
@@ -25,8 +28,8 @@ class TestCategoryOne:
         category = Category("Электроника", "Техника для дома", products)
 
         assert len(category._Category__products) == 2
-        assert "Телефон" in category.products
-        assert "Ноутбук" in category.products
+        assert "Телефон" in [product.name for product in category.products]
+        assert "Ноутбук" in [product.name for product in category.products]
 
     def test_total_categories_counter(self):
         """Проверка подсчета количества категорий"""
@@ -85,15 +88,98 @@ class TestCategoryTwo:
         category.add_product(product1)
         category.add_product(product2)
 
-        expected_output = (
-            "Продукт 1, 100 руб. , Остаток: 5 шт.\n"
-            "Продукт 2, 200 руб. , Остаток: 3 шт."
-        )
-
-        assert category.products == expected_output
+        assert len(category.products) == 2
+        assert isinstance(category.products[0], Product)
+        assert category.products[0].name == "Продукт 1"
+        assert category.products[1].name == "Продукт 2"
 
     def test_products_property_empty(self):
         """Тест свойства products с пустым списком продуктов"""
         category = Category("Тест", "Тестовая категория")
 
-        assert category.products == ""
+        assert category.products == []
+
+
+class TestCategoryMethods(unittest.TestCase):
+    def setUp(self):
+        """Подготовка тестовых данных"""
+        self.products = [
+            Product("Телефон", "Смартфон", 50000.0, 10),
+            Product("Ноутбук", "Игровой ноутбук", 100000.0, 5)
+        ]
+        self.category = Category("Электроника", "Техника", self.products)
+
+    def test_category_str(self):
+        """Тест метода __str__ класса Category"""
+        self.assertEqual(
+            str(self.category),
+            "Электроника, количество продуктов: 15 шт."
+        )
+
+        empty_category = Category("Пустая", "Категория без товаров")
+        self.assertEqual(
+            str(empty_category),
+            "Пустая, количество продуктов: 0 шт."
+        )
+
+    def test_category_add_product(self):
+        """Тест добавления продукта и проверка __str__"""
+        new_product = Product("Наушники", "Беспроводные", 15000.0, 20)
+        self.category.add_product(new_product)
+        self.assertEqual(
+            str(self.category),
+            "Электроника, количество продуктов: 35 шт."
+        )
+
+
+class TestCategoryIterator(unittest.TestCase):
+    def setUp(self):
+        class MockCategory:
+            def __init__(self, products):
+                self.__products = products
+
+            def __iter__(self):
+                return CategoryIterator(self)
+
+            @property
+            def products(self):
+                return self.__products
+
+        self.mock_category = MockCategory(["product1", "product2", "product3"])
+
+    def test_iterator_returns_all_products(self):
+        """Проверка на то, что корректно возвращаются все продукты"""
+        iterator = CategoryIterator(self.mock_category)
+        products = list(iterator)
+        self.assertEqual(products, ["product1", "product2", "product3"])
+
+    def test_iterator_stops_after_last_product(self):
+        """Проверка, что после последнего продукта итератор останавливается"""
+        iterator = CategoryIterator(self.mock_category)
+        next(iterator)
+        next(iterator)
+        next(iterator)
+        with self.assertRaises(StopIteration):
+            next(iterator)
+
+    def test_empty_category(self):
+        """Проверка пустого знеачения"""
+        empty_category = type('', (), {'products': []})()
+        iterator = CategoryIterator(empty_category)
+        with self.assertRaises(StopIteration):
+            next(iterator)
+        self.assertEqual(list(iterator), [])
+
+    def test_iterator_is_iterable(self):
+        iterator = CategoryIterator(self.mock_category)
+        self.assertTrue(hasattr(iterator, '__iter__'))
+        self.assertIs(iter(iterator), iterator)
+
+    def test_category_iter_returns_iterator(self):
+        """Проверяет, что возвращается итератор"""
+        iterator = iter(self.mock_category)
+        self.assertIsInstance(iterator, CategoryIterator)
+        self.assertEqual(list(iterator), ["product1", "product2", "product3"])
+
+    def test_products_property_returns_list(self):
+        self.assertEqual(self.mock_category.products, ["product1", "product2", "product3"])

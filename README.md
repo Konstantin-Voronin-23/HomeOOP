@@ -78,6 +78,19 @@ poetry add openpyxl
 
 </details>
 
+## 4. Модуль iterators - модуль для класса iterators:
+
+<details>
+<summary><b>❗ ITERATORS ❗</b></summary>
+
+### __init__:
+  - Инициализатор
+### __iter__:
+  - Итератор
+### __next__:
+  - Переход к следующему значение в итерации
+
+</details>
 
 # **Тестирование модулей**:
 
@@ -106,6 +119,10 @@ poetry add openpyxl
   - Тест подтверждения понижения цены
 ### test_new_product_with_empty_list:
   - Тест создания нового продукта при пустом списке
+### test_product_str:
+  - Тест метода __str__ класса Product
+### test_product_add:
+  - Тест метода __add__ класса Product
 
 </details>
 
@@ -130,6 +147,22 @@ poetry add openpyxl
   - Тест свойства products, возвращающего строковое представление
 ### test_products_property_empty:
   - Тест свойства products с пустым списком продуктов
+### test_category_str:
+  - Тест метода __str__ класса Category
+### test_category_add_product:
+  - Тест добавления продукта и проверка __str__
+### test_iterator_returns_all_products:
+  - Проверка на то, что корректно возвращаются все продукты
+### test_iterator_stops_after_last_product:
+  - Проверка, что после последнего продукта итератор останавливается
+### test_empty_category:
+  - Проверка пустого знеачения
+### test_iterator_is_iterable:
+  - Проверяет, что объект CategoryIterator является корректным итерируемым объектом
+### test_category_iter_returns_iterator:
+  - Проверяет, что возвращается итератор
+### test_products_property_returns_list:
+  - Тест, проверяет что возвращается список продуктов
 
 </details>
 
@@ -151,7 +184,21 @@ poetry add openpyxl
 
 </details>
 
-# Покрытие тестами 100%
+<details>
+<summary><b>❗ МОДУЛЬ ITERATORS ❗</b></summary>
+
+### test_iterator_returns_all_products:
+  - Проверка на то, что корректно возвращаются все продукты
+### test_iterator_stops_after_last_product:
+  - Проверка, что после последнего продукта итератор останавливается
+### test_empty_category:
+  - Проверка пустого знеачения
+### test_iterator_is_iterable:
+  - Проверяет, что объект CategoryIterator является корректным итерируемым объектом
+
+</details>
+
+# Покрытие тестами 98%
 
 # Документация
 
