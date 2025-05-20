@@ -1,9 +1,10 @@
 import unittest
 from io import StringIO
 from unittest.mock import patch
+
 import pytest
 
-from src.Product import Product, Smartphone, LawnGrass
+from src.Product import LawnGrass, Product, Smartphone
 
 
 class TestProductOne:

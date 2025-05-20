@@ -44,7 +44,7 @@ class Product():
         if not isinstance(other, Product):
             raise TypeError("Можно складывать только объекты класса Product")
 
-        if type(self) != type(other):
+        if self.__class__ is not other.__class__:
             raise TypeError("Нельзя складывать товары разных классов")
 
         return (self.price * self.quantity) + (other.price * other.quantity)
@@ -90,4 +90,3 @@ class LawnGrass(Product):
         self.country = country
         self.germination_period = germination_period
         self.color = color
-
