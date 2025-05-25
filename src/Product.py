@@ -21,7 +21,7 @@ class BaseProduct(ABC):
         pass
 
 
-class CreationLoggerMixin:
+class MixinLog:
     """Миксин для логирования объектов"""
 
     def __init__(self, *args, **kwargs):
@@ -32,7 +32,7 @@ class CreationLoggerMixin:
         super().__init__(*args, **kwargs)
 
 
-class Product(CreationLoggerMixin, BaseProduct):
+class Product(MixinLog, BaseProduct):
     """Класс для названия и описания продукта"""
 
     def __init__(self, name: str, description: str, price: float, quantity: int, *args, **kwargs) -> None:
