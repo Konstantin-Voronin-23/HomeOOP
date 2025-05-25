@@ -1,11 +1,11 @@
+import sys
 import unittest
 from io import StringIO
 from unittest.mock import patch
 
 import pytest
-import sys
 
-from src.Product import LawnGrass, Product, Smartphone, BaseProduct, MixinLog
+from src.Product import BaseProduct, LawnGrass, Product, Smartphone
 
 
 class TestProductOne:

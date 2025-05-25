@@ -1,5 +1,5 @@
-from typing import Any, Dict, List, Optional
 from abc import ABC, abstractmethod
+from typing import Any, Dict, List, Optional
 
 
 class BaseProduct(ABC):
