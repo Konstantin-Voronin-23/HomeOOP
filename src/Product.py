@@ -21,12 +21,23 @@ class BaseProduct(ABC):
         pass
 
 
-class Product():
+class CreationLoggerMixin:
+    """Миксин для логирования объектов"""
+
+    def __init__(self, *args, **kwargs):
+        """Инициализация с логированием параметров создания"""
+        print(f"Создан объект класса {self.__class__.__name__} с параметрами:")
+        print(f"Позиционные аргументы: {args}")
+        print(f"Именованные аргументы: {kwargs}")
+        super().__init__(*args, **kwargs)
+
+
+class Product(CreationLoggerMixin, BaseProduct):
     """Класс для названия и описания продукта"""
 
-    def __init__(self, name: str, description: str, price: float, quantity: int) -> None:
+    def __init__(self, name: str, description: str, price: float, quantity: int, *args, **kwargs) -> None:
         """Метод для инициализации класса"""
-
+        super().__init__(name=name, description=description, price=price, quantity=quantity, *args, **kwargs)
         self.name = name
         self.description = description
         self.__price = price
@@ -36,6 +47,10 @@ class Product():
         """Метод отображения информации об объекте класса для пользователя"""
 
         return f"{self.name}, {self.__price} руб. Остаток: {self.quantity} шт."
+
+    def get_total_price(self) -> float:
+        """Реализация абстрактного метода - возвращает общую стоимость продукта"""
+        return self.price * self.quantity
 
     @classmethod
     def new_product(cls, product_data: Dict, products_list: Optional[List['Product']] = None) -> 'Product':
@@ -67,7 +82,7 @@ class Product():
         if self.__class__ is not other.__class__:
             raise TypeError("Нельзя складывать товары разных классов")
 
-        return (self.price * self.quantity) + (other.price * other.quantity)
+        return self.get_total_price() + other.get_total_price()
 
     @property
     def price(self) -> float:
