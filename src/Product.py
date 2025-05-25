@@ -1,4 +1,24 @@
 from typing import Any, Dict, List, Optional
+from abc import ABC, abstractmethod
+
+
+class BaseProduct(ABC):
+    """Базовый абстрактный класс"""
+
+    @abstractmethod
+    def __init__(self, name: str, description: str, price: float, quantity: int) -> None:
+        """Абстрактный метод инициализации"""
+        pass
+
+    @abstractmethod
+    def __str__(self) -> str:
+        """Абстрактный метод вывода текста"""
+        pass
+
+    @abstractmethod
+    def get_total_price(self) -> float:
+        """Абстрактный метод для получения стоимости продукта"""
+        pass
 
 
 class Product():
