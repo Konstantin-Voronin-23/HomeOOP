@@ -12,7 +12,7 @@ class BaseProduct(ABC):
 
     @abstractmethod
     def __str__(self) -> str:
-        """Абстрактный метод вывода текста"""
+        """Абстрактный метод вывода данных"""
         pass
 
     @abstractmethod
