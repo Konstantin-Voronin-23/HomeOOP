@@ -1,10 +1,11 @@
+import sys
 import unittest
 from io import StringIO
 from unittest.mock import patch
 
 import pytest
 
-from src.Product import LawnGrass, Product, Smartphone
+from src.Product import BaseProduct, LawnGrass, Product, Smartphone
 
 
 class TestProductOne:
@@ -251,3 +252,61 @@ class TestMixedProducts:
 
         with pytest.raises(TypeError, match="Нельзя складывать товары разных классов"):
             phone + grass
+
+
+class TestProductClasses(unittest.TestCase):
+    def setUp(self):
+        self.held_output = StringIO()
+        sys.stdout = self.held_output
+
+    def tearDown(self):
+        sys.stdout = sys.__stdout__
+
+    def test_base_product_is_abstract(self):
+        """Проверяем, что BaseProduct действительно абстрактный"""
+        with self.assertRaises(TypeError):
+            product = BaseProduct("Test", "Desc", 100, 5)
+
+    def test_product_creation(self):
+        """Тест создания простого продукта"""
+        product = Product("Телефон", "Смартфон", 10000, 5)
+
+        self.assertEqual(product.name, "Телефон")
+        self.assertEqual(product.description, "Смартфон")
+        self.assertEqual(product.price, 10000)
+        self.assertEqual(product.quantity, 5)
+
+        output = self.held_output.getvalue()
+        self.assertIn("Создан объект класса Product", output)
+        self.assertIn("'name': 'Телефон'", output)
+
+    def test_product_str_method(self):
+        """Тест метода __str__"""
+        product = Product("Телефон", "Смартфон", 10000, 5)
+        expected_str = "Телефон, 10000 руб. Остаток: 5 шт."
+        self.assertEqual(str(product), expected_str)
+
+    def test_get_total_price(self):
+        """Тест метода get_total_price"""
+        product = Product("Телефон", "Смартфон", 10000, 3)
+        self.assertEqual(product.get_total_price(), 30000)
+
+    def test_smartphone_creation(self):
+        """Тест создания смартфона"""
+        phone = Smartphone("iPhone", "Флагман", 80000, 10, "A15", "13 Pro", 256, "Graphite")
+
+        self.assertEqual(phone.name, "iPhone")
+        self.assertEqual(phone.price, 80000)
+
+        self.assertEqual(phone.model, "13 Pro")
+        self.assertEqual(phone.memory, 256)
+
+    def test_lawn_grass_creation(self):
+        """Тест создания газонной травы"""
+        grass = LawnGrass("Газон", "Мягкий", 500, 20, "Россия", "14 дней", "Зеленый")
+
+        self.assertEqual(grass.name, "Газон")
+        self.assertEqual(grass.quantity, 20)
+
+        self.assertEqual(grass.country, "Россия")
+        self.assertEqual(grass.germination_period, "14 дней")

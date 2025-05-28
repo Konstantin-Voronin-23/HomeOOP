@@ -55,6 +55,12 @@ poetry add openpyxl
   - __init__ Метод для инициализации класса с аргументами efficiency | model | memory | color
 ### LawnGrass:
   - __init__ Метод для инициализации класса с аргументами country | germination_period | color
+### BaseProduct абстрактный класс:
+  - __init__ Абстрактный метод инициализации
+  - __str__  Абстрактный метод вывода данных
+  - get_total_price Абстрактный метод для получения стоимости продукта
+### MixinLog миксин класс:
+  - __init__ Инициализация с логированием параметров создания
 
 </details>
 
@@ -150,6 +156,18 @@ poetry add openpyxl
   - Проверка сложения двух упаковок травы
 ### test_add_smartphone_and_grass:
   - Проверка попытки сложить смартфон и траву
+### test_base_product_is_abstract:
+  - Проверяем, что BaseProduct действительно абстрактный
+### test_product_creation:
+  - Тест создания простого продукта
+### test_product_str_method:
+  - Тест метода __str__
+### test_get_total_price:
+  - Тест метода get_total_price
+### test_smartphone_creation:
+  - Тест создания смартфона
+### test_lawn_grass_creation:
+  - Тест создания газонной травы
 
 </details>
 
@@ -225,7 +243,7 @@ poetry add openpyxl
 
 </details>
 
-# Покрытие тестами 98%
+# Покрытие тестами 97%
 
 # Документация
 
