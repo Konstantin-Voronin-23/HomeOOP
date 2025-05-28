@@ -183,3 +183,37 @@ class TestCategoryIterator(unittest.TestCase):
 
     def test_products_property_returns_list(self):
         self.assertEqual(self.mock_category.products, ["product1", "product2", "product3"])
+
+
+class TestCategoryAveragePrice(unittest.TestCase):
+    def setUp(self):
+        """Создаем тестовые данные"""
+        self.product1 = Product("Телефон", "Смартфон", 1000.0, 5)
+        self.product2 = Product("Ноутбук", "Игровой", 2000.0, 3)
+        self.product_bad = object()
+        self.product_str_price = Product("Книга", "Учебник", "500", 2)
+
+    def test_normal_case(self):
+        """Тест нормального случая с товарами"""
+        category = Category("Электроника", "Техника", [self.product1, self.product2])
+        self.assertEqual(category.get_average_prices(), 1500.0)
+
+    def test_empty_category(self):
+        """Тест пустой категории"""
+        empty_category = Category("Пустая", "Нет товаров", [])
+        self.assertEqual(empty_category.get_average_prices(), 0)
+
+    def test_missing_price_attribute(self):
+        """Тест случая, когда у товара нет атрибута price"""
+        category = Category("Битая категория", "Ошибка", [self.product_bad])
+        self.assertEqual(category.get_average_prices(), 0)
+
+    def test_string_price_value(self):
+        """Тест случая, когда цена - строка"""
+        category = Category("Проблемная", "Неверные данные", [self.product_str_price])
+        self.assertEqual(category.get_average_prices(), 0)
+
+    def test_single_product(self):
+        """Тест категории с одним товаром"""
+        category = Category("Один товар", "Тест", [self.product1])
+        self.assertEqual(category.get_average_prices(), 1000.0)
