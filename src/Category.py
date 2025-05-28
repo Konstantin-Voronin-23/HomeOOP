@@ -50,7 +50,7 @@ class Category():
     def products(self) -> List[Any]:
         return self.__products
 
-    def get_average_prices(self):
+    def get_average_prices(self) -> float:
         """Подсчитывает средний ценник всех товаров"""
 
         try:

@@ -44,6 +44,7 @@ poetry add openpyxl
 
 ###  __init__ :
   - Метод для инициализации класса с аргументами name | description | price | quantity
+  - Расширен, теперь выбрасывает исключение если количество равно 0
 ### new_product:
   - Метод класса, принимает на вход параметры товара в словаре и возвращать созданный объект класса
 ### price:
@@ -76,6 +77,8 @@ poetry add openpyxl
   - Метод для добавления товаров в категорию
 ### products:
   - Getter, возвращает строковое представление товаров
+### get_average_prices:
+  - Новый метод который подсчитывает средний ценник всех товаров, если в категории нет товаров, возвращает 0
 
 </details>
 
@@ -168,6 +171,10 @@ poetry add openpyxl
   - Тест создания смартфона
 ### test_lawn_grass_creation:
   - Тест создания газонной травы
+### test_zero_quantity_raises_error:
+  - Проверяем, что при quantity=0 возникает ValueError
+### test_positive_quantity_works:
+  - Проверяем, что при quantity>0 объект создается нормально
 
 </details>
 
@@ -208,6 +215,16 @@ poetry add openpyxl
   - Проверяет, что возвращается итератор
 ### test_products_property_returns_list:
   - Тест, проверяет что возвращается список продуктов
+### test_normal_case:
+  - Тест нормального случая с товарами
+### test_empty_category:
+  - Тест пустой категории
+### test_missing_price_attribute:
+  - Тест случая, когда у товара нет атрибута price
+### test_string_price_value:
+  - Тест случая, когда цена - строка
+### test_single_product:
+  - Тест категории с одним товаром
 
 </details>
 
