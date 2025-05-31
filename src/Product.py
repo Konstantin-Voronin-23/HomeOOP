@@ -37,6 +37,9 @@ class Product(MixinLog, BaseProduct):
 
     def __init__(self, name: str, description: str, price: float, quantity: int, *args, **kwargs) -> None:
         """Метод для инициализации класса"""
+        if quantity == 0:
+            raise ValueError("Товар с нулевым количеством не может быть добавлен")
+
         super().__init__(name=name, description=description, price=price, quantity=quantity, *args, **kwargs)
         self.name = name
         self.description = description

@@ -49,3 +49,19 @@ class Category():
     @property
     def products(self) -> List[Any]:
         return self.__products
+
+    def get_average_prices(self) -> float:
+        """Подсчитывает средний ценник всех товаров"""
+
+        try:
+            total_price = sum(product.price for product in self.__products)
+            avg = total_price / len(self.__products)
+            return avg
+        except ZeroDivisionError:
+            return 0
+        except AttributeError:
+            print("Ошибка: у некоторых товаров отсутствует цена (атрибут price)")
+            return 0
+        except TypeError:
+            print("Ошибка: цена товара должна быть числом")
+            return 0

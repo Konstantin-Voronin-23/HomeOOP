@@ -265,7 +265,7 @@ class TestProductClasses(unittest.TestCase):
     def test_base_product_is_abstract(self):
         """Проверяем, что BaseProduct действительно абстрактный"""
         with self.assertRaises(TypeError):
-            product = BaseProduct("Test", "Desc", 100, 5)
+            BaseProduct("Test", "Desc", 100, 5)
 
     def test_product_creation(self):
         """Тест создания простого продукта"""
@@ -310,3 +310,13 @@ class TestProductClasses(unittest.TestCase):
 
         self.assertEqual(grass.country, "Россия")
         self.assertEqual(grass.germination_period, "14 дней")
+
+    def test_zero_quantity_raises_error(self):
+        """Проверяем, что при quantity=0 возникает ValueError"""
+        with self.assertRaises(ValueError):
+            Product("Телефон", "Смартфон", 1000.0, 0)
+
+    def test_positive_quantity_works(self):
+        """Проверяем, что при quantity>0 объект создается нормально"""
+        product = Product("Ноутбук", "Игровой", 2000.0, 3)
+        self.assertEqual(product.quantity, 3)
